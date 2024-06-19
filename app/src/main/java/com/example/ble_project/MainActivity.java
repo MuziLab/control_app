@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {  //mainactivity字面意�
     private int led_size = 16;
     private String pre_position = "test";
 
-    private int currentLayoutId = 1;//布局id,1是默认的界面
+
     //上面全是变量定义
     //下面的@override,字面意思,改写,开始改写活动大类
 
@@ -238,33 +238,16 @@ public class MainActivity extends AppCompatActivity {  //mainactivity字面意�
         change_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            setContentView(R.layout.first_fragment);
-            currentLayoutId = 2;
-            System.out.println("**********************");
+
+
             }
+
 
         });
 
     }
 
-    public void onBackPressed(){
-        if (currentLayoutId != 1)
-        {
-            setContentView(R.layout.activity_main);
-            currentLayoutId = 1;
-        }else{
-            Toast.makeText(this, "还想走??", Toast.LENGTH_SHORT).show();
-        }
 
-    }
-//    void midToast(String str, int showTime)
-//    {
-//        Toast toast = Toast.makeText(global_context, str, showTime);
-//        toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL , 0, 0);  //设置显示位置
-//        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-//        v.setTextColor(Color.YELLOW);     //设置字体颜色
-//        toast.show();
-//    }
 }
 
 
