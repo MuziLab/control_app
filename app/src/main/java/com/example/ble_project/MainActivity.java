@@ -28,7 +28,10 @@ import android.annotation.SuppressLint;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 
@@ -233,16 +236,20 @@ public class MainActivity extends AppCompatActivity {  //mainactivity字面意�
         });
 
 
+          FirstFragment fragment1 = new FirstFragment();
+
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        transaction.add(R.id.fragment1,new Example);
+
 
         //切换layout的程序
         change_layout.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View view) {
-
-
+                getSupportFragmentManager().beginTransaction().replace(R.id.FragmentContainer1, fragment1).commit();
             }
-
-
         });
 
     }
