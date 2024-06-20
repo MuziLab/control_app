@@ -43,18 +43,21 @@ import androidx.fragment.app.FragmentTransaction;
 
 
 public class FirstFragment extends Fragment {
+
+    Fragment2 fragment2 = new Fragment2();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.first_fragment, container, false);
 
+        //定义变量
         int led_size = 16;
-        String pre_position = "test";
         PrintWriter mClientOut;//写信号
         mClientOut = ((MainActivity) getActivity()).getClientOut();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();//定义了fragment_transaction
 
 
-        // 获取屏幕宽度
+                // 获取屏幕宽度
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int screenWidth = displayMetrics.widthPixels;
@@ -63,12 +66,23 @@ public class FirstFragment extends Fragment {
         Button squareButton = view.findViewById(R.id.squareButton);
         RadioGroup mode_change = view.findViewById(R.id.mode_change);
         SeekBar light = view.findViewById(R.id.light);
-        Button change_layout = view.findViewById(R.id.change_layout);
+        Button more_mode = view.findViewById(R.id.more_mode);
+
         // 设置按钮的宽度和高度为屏幕宽度
         ViewGroup.LayoutParams params = squareButton.getLayoutParams();
         params.width = screenWidth;
         params.height = screenWidth;
         squareButton.setLayoutParams(params);
+
+        more_mode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentTransaction.replace(R.id.FragmentContainer1, fragment2);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
 
         mode_change.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

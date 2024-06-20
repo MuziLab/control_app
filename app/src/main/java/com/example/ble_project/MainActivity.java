@@ -29,7 +29,6 @@ import android.view.MotionEvent;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -50,10 +49,12 @@ public class MainActivity extends AppCompatActivity {  //mainactivity字面意�
      private Socket mClientSocket;//套接字定义
     private BufferedReader mClientIn;//读信号,在本程序中没用
     private PrintWriter mClientOut;//写信号
+    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();//定义了fragment_transaction
+    FirstFragment fragment1 = new FirstFragment();
 
     public PrintWriter getClientOut(){
         return mClientOut;
-    }
+    }//定义了一个方法,用于向fragment中传数据
 
 
     //上面全是变量定义
@@ -64,10 +65,13 @@ public class MainActivity extends AppCompatActivity {  //mainactivity字面意�
         //注意上面中,和下面的super涉及到java的一些语法
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);//设置界面
-
+        fragmentTransaction.add(R.id.FragmentContainer1,fragment1).commit();//加fragment
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
         TextView touch_position = findViewById(R.id.position);
-        Button change_layout = findViewById(R.id.button);
+
+
 
 
         class ServerSocketThread extends Thread//创建一个新方法,继承自thread
@@ -113,14 +117,6 @@ public class MainActivity extends AppCompatActivity {  //mainactivity字面意�
 //        transaction.add(R.id.fragment1,new Example);
 
 
-        //切换layout的程序
-        change_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-
-            public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.FragmentContainer1, fragment1).commit();
-            }
-        });
 
     }
 

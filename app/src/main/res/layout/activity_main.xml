@@ -12,9 +12,12 @@
 
     <fragment
         android:id="@+id/FragmentContainer1"
+        android:name="com.example.ble_project.Fragment2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name = "com.example.ble_project.Fragment2"/>
+        app:layout_constraintTop_toBottomOf="@+id/position"
+        tools:layout_editor_absoluteX="0dp" />
+
     <TextView
         android:id="@+id/position"
         android:layout_width="215dp"
@@ -27,13 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
