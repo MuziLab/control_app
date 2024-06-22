@@ -10,14 +10,16 @@
     tools:layout_editor_absoluteY="166dp">
 
 
-    <FrameLayout
-        android:id="@+id/FragmentContainer1"
-        android:name="com.example.ble_project.LogFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp" />
-
-
+    <Button
+        android:id="@+id/more_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="更多功能点这里"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

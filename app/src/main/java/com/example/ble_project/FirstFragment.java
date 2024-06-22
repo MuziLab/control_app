@@ -12,8 +12,10 @@ import android.os.Message;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import android.widget.SeekBar;
@@ -44,17 +46,26 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class FirstFragment extends Fragment {
 
-    Fragment2 fragment2 = new Fragment2();
+    private String pre_position = "01";
+
+    Mode2 mode2 = new Mode2();
+    Mode1 mode1 = new Mode1();
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.first_fragment, container, false);
 
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.FragmentContainer2,mode1);
+        fragmentTransaction.commit();
         //定义变量
         int led_size = 16;
         PrintWriter mClientOut;//写信号
         mClientOut = ((MainActivity) getActivity()).getClientOut();
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();//定义了fragment_transaction
+
 
 
                 // 获取屏幕宽度
@@ -66,7 +77,7 @@ public class FirstFragment extends Fragment {
         Button squareButton = view.findViewById(R.id.squareButton);
         RadioGroup mode_change = view.findViewById(R.id.mode_change);
         SeekBar light = view.findViewById(R.id.light);
-        Button more_mode = view.findViewById(R.id.more_mode);
+
 
         // 设置按钮的宽度和高度为屏幕宽度
         ViewGroup.LayoutParams params = squareButton.getLayoutParams();
@@ -74,15 +85,9 @@ public class FirstFragment extends Fragment {
         params.height = screenWidth;
         squareButton.setLayoutParams(params);
 
-        more_mode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fragmentTransaction.replace(R.id.FragmentContainer1, fragment2);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
 
-            }
-        });
+
+
 
         mode_change.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -97,6 +102,9 @@ public class FirstFragment extends Fragment {
                                 mClientOut.println("M"+(char)(90+1));
                             }
                         }).start();
+                        FragmentTransaction fragmentTransaction1 = getChildFragmentManager().beginTransaction();
+                        fragmentTransaction1.replace(R.id.FragmentContainer2,mode1);
+                        fragmentTransaction1.commit();
                         break;
                     case "模式二":
                         new Thread(new Runnable() {
@@ -104,8 +112,12 @@ public class FirstFragment extends Fragment {
                             public void run() {
                                 mClientOut.println("M"+(char)(90+2));
 
+
                             }
                         }).start();
+                        FragmentTransaction fragmentTransaction2 = getChildFragmentManager().beginTransaction();
+                        fragmentTransaction2.replace(R.id.FragmentContainer2,mode2);
+                        fragmentTransaction2.commit();
                         break;
                     case "模式三":
                         new Thread(new Runnable() {
@@ -145,6 +157,8 @@ public class FirstFragment extends Fragment {
             }
         });
 
+
+
         squareButton.setOnTouchListener(new View.OnTouchListener(){
             @SuppressLint("ClickableViewAccessibility")
             @Override
@@ -154,7 +168,7 @@ public class FirstFragment extends Fragment {
                 int y = (int)((led_size*event.getY())/screenWidth)+1;//根据点阵长度设置
                 if (y<1){y=1;}
                 if(y>16){y=16;}
-                String position = "X"+x+"Y"+y+"E";
+                String position = "X"+(char)(x+90)+"Y"+(char)(y+90)+"E";
                 // 根据不同的触摸事件做处理
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
@@ -164,7 +178,12 @@ public class FirstFragment extends Fragment {
                             @Override
                             public void run() {
                                 // 在后台线程中执行耗时操作，例如网络请求
-                                mClientOut.println(position);
+                                if (pre_position != position)
+                                {
+                                    mClientOut.println(position);
+                                    pre_position = position;
+                                }
+
 
                             }
                         }).start();
@@ -179,8 +198,11 @@ public class FirstFragment extends Fragment {
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    // 在后台线程中执行耗时操作，例如网络请求
-                                    mClientOut.println(position);
+                                    if (pre_position != position)
+                                    {
+                                        mClientOut.println(position);
+                                        pre_position = position;
+                                    }
 
                                 }
                             }).start();
