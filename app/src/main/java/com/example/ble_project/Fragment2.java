@@ -43,9 +43,9 @@ import android.os.Bundle;
 public class Fragment2 extends Fragment {
 
     private int mic_s = 1;
-    private int sleep_ti = 10;
-    private int sleep_th = 10;
-    private int gravity_co = 10;
+    private int sleep_ti = 1;
+    private int sleep_th = 5;
+    private int gravity_co = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,7 +84,7 @@ public class Fragment2 extends Fragment {
         sleep_time.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                SleepTi.setText("瞌睡时间:"+i);
+                SleepTi.setText("瞌睡时间:"+i+"秒");
                 sleep_ti = i;
             }
             @Override
@@ -132,13 +132,25 @@ public class Fragment2 extends Fragment {
         apply_and_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mClientOut.println("A"+(char)(mic_s+90)+(char)(sleep_ti+90)+(char)(sleep_th+90)+(char)(gravity_co+90));
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mClientOut.println("A"+(char)(mic_s+90)+(char)(sleep_ti+90)+(char)(sleep_th+90)+(char)(gravity_co+90));
+                    }
+                }).start();
+
             }
         });
         apply_but_not_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mClientOut.println("A"+(char)(mic_s+90)+(char)(sleep_ti+90)+(char)(sleep_th+90)+(char)(gravity_co+90));
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mClientOut.println("B"+(char)(mic_s+90)+(char)(sleep_ti+90)+(char)(sleep_th+90)+(char)(gravity_co+90));
+                    }
+                }).start();
+
             }
         });
 

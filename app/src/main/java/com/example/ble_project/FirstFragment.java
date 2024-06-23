@@ -1,5 +1,6 @@
 package com.example.ble_project;
 
+import android.bluetooth.le.ScanResult;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,7 @@ import androidx.fragment.app.FragmentTransaction;
 public class FirstFragment extends Fragment {
 
     private String pre_position = "01";
+    private String position;
 
     Mode2 mode2 = new Mode2();
     Mode1 mode1 = new Mode1();
@@ -77,7 +79,7 @@ public class FirstFragment extends Fragment {
         Button squareButton = view.findViewById(R.id.squareButton);
         RadioGroup mode_change = view.findViewById(R.id.mode_change);
         SeekBar light = view.findViewById(R.id.light);
-
+        TextView text_xy = view.findViewById(R.id.textViewXy);
 
         // 设置按钮的宽度和高度为屏幕宽度
         ViewGroup.LayoutParams params = squareButton.getLayoutParams();
@@ -107,17 +109,35 @@ public class FirstFragment extends Fragment {
                         fragmentTransaction1.commit();
                         break;
                     case "模式二":
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mClientOut.println("M"+(char)(90+2));
-
-
-                            }
-                        }).start();
                         FragmentTransaction fragmentTransaction2 = getChildFragmentManager().beginTransaction();
                         fragmentTransaction2.replace(R.id.FragmentContainer2,mode2);
                         fragmentTransaction2.commit();
+
+                        boolean switch_state = false;//这里还要优化,
+                        if (switch_state == true){
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                System.out.println("模式4");
+                                mClientOut.println("M"+(char)(90+4));
+
+
+                            }
+                        }).start();}else {
+
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+
+
+                                    mClientOut.println("M"+(char)(90+2));
+
+
+                                }
+                            }).start();
+                        }
+
                         break;
                     case "模式三":
                         new Thread(new Runnable() {
@@ -168,54 +188,59 @@ public class FirstFragment extends Fragment {
                 int y = (int)((led_size*event.getY())/screenWidth)+1;//根据点阵长度设置
                 if (y<1){y=1;}
                 if(y>16){y=16;}
-                String position = "X"+(char)(x+90)+"Y"+(char)(y+90)+"E";
-                // 根据不同的触摸事件做处理
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        // 手指按下
+                position = "F"+(char)(x+90)+(char)(y+90)+"E";
+                if (position.equals(pre_position))
+                {
 
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                // 在后台线程中执行耗时操作，例如网络请求
-                                if (pre_position != position)
-                                {
-                                    mClientOut.println(position);
-                                    pre_position = position;
-                                }
+                }else
+                {
 
+                    pre_position = position;
+                    text_xy.setText("X:"+x+"Y:"+y);
 
-                            }
-                        }).start();
-
-
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        //if (position != pre_position)
-                        // 手指移动
-                      //  {
+                    // 根据不同的触摸事件做处理
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            // 手指按下
 
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if (pre_position != position)
-                                    {
-                                        mClientOut.println(position);
-                                        pre_position = position;
-                                    }
+                                    // 在后台线程中执行耗时操作，例如网络请求
+
+                                    mClientOut.println(position);
+
+
 
                                 }
                             }).start();
-                            //pre_position = position;//这个主要是少发送几次,节省资源.
-                      //  }
-                        break;
+
+
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // 在后台线程中执行耗时操作，例如网络请求
+
+                                    mClientOut.println(position);
+
+                                }
+                            }).start();
+
+
+                            break;
+                    }
+
+                }
+                switch (event.getAction()) {
                     case MotionEvent.ACTION_UP:
                         // 手指抬起
+                        text_xy.setText("手指抬起");
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                // 在后台线程中执行耗时操作，例如网络请求
-                                mClientOut.println("X0Y0E");
+                                mClientOut.println("I" );
 
                             }
                         }).start();
