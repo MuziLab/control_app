@@ -40,7 +40,7 @@ import android.content.Context;
 public class MainActivity extends AppCompatActivity {  //mainactivity字面意思,主活动,app打开时进行的活动,继承自
     //类AppCompatActivity,活动都用这个大类
 
-    String mClientIp = "192.168.157.227";
+    String mClientIp = "192.168.157.108";
     int mClientPort = 1;
 
 

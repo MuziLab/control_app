@@ -12,9 +12,7 @@
         android:max="15"
         android:min="0"
         app:layout_constraintBottom_toBottomOf="@+id/textView11"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/textView11" />
 
     <SeekBar
         android:id="@+id/seekBar8"
@@ -24,20 +22,16 @@
         android:min="0"
         android:progress="15"
         app:layout_constraintBottom_toBottomOf="@+id/textView16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/textView16" />
 
     <SeekBar
         android:id="@+id/seekBar6"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
+        android:layout_width="187dp"
+        android:layout_height="18dp"
         android:max="15"
         android:min="0"
         app:layout_constraintBottom_toBottomOf="@+id/textView6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/textView6"
@@ -45,8 +39,9 @@
         android:layout_height="wrap_content"
         android:text="红"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
-        app:layout_constraintEnd_toStartOf="@+id/seekBar6"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.508" />
 
     <TextView
         android:id="@+id/textView11"
@@ -54,7 +49,7 @@
         android:layout_height="wrap_content"
         android:text="绿"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/seekBar7"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -63,6 +58,26 @@
         android:layout_height="wrap_content"
         android:text="蓝"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/seekBar8"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="撤销"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/seekBar6"
+        app:layout_constraintTop_toTopOf="@+id/seekBar6" />
+
+    <Button
+        android:id="@+id/clear_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="清除"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBar8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/seekBar7"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar7" />
 </androidx.constraintlayout.widget.ConstraintLayout>

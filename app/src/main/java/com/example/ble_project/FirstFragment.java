@@ -83,8 +83,8 @@ public class FirstFragment extends Fragment {
 
         // 设置按钮的宽度和高度为屏幕宽度
         ViewGroup.LayoutParams params = squareButton.getLayoutParams();
-        params.width = screenWidth;
-        params.height = screenWidth;
+        params.width = screenWidth-100;
+        params.height = screenWidth-100;
         squareButton.setLayoutParams(params);
 
 
@@ -140,12 +140,7 @@ public class FirstFragment extends Fragment {
 
                         break;
                     case "模式三":
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mClientOut.println("M"+(char)(90+3));
-                            }
-                        }).start();
+
                         break;
                     default:
                         System.out.println("error");

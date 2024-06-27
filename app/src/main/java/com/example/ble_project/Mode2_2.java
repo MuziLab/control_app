@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SeekBar;
 
 import androidx.fragment.app.Fragment;
@@ -22,8 +23,38 @@ public class Mode2_2 extends Fragment {
         SeekBar r_seek = view.findViewById(R.id.seekBar6);
         SeekBar g_seek = view.findViewById(R.id.seekBar7);
         SeekBar b_seek = view.findViewById(R.id.seekBar8);
+        Button back_button = view.findViewById(R.id.back_button);
+        Button clear_button = view.findViewById(R.id.clear_button);
         PrintWriter mClientOut;//写信号
         mClientOut = ((MainActivity) getActivity()).getClientOut();
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mClientOut.println("H");
+                    }
+                }).start();
+            }
+        });
+
+        clear_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                r_seek.setProgress(0);
+                g_seek.setProgress(0);
+                b_seek.setProgress(15);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mClientOut.println("C");
+                    }
+                }).start();
+            }
+        });
+
         r_seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {

@@ -58,8 +58,8 @@ public class Fragment2 extends Fragment {
         SeekBar sleep_threshold = view.findViewById(R.id.seekBar);
         SeekBar gravity_coefficient = view.findViewById(R.id.seekBar4);
         TextView Mic = view.findViewById(R.id.textView10);
-        TextView SleepTi = view.findViewById(R.id.textView12);
-        TextView SleepTh = view.findViewById(R.id.textView13);
+        TextView SleepTi = view.findViewById(R.id.textView13);
+        TextView SleepTh = view.findViewById(R.id.textView12);
         TextView Gravity = view.findViewById(R.id.textView15);
 
         PrintWriter mClientOut;//写信号
