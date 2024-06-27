@@ -22,17 +22,23 @@ import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 
 
-import android.util.DisplayMetrics;
-import android.view.ViewGroup;
+import java.net.InetAddress;
+import java.net.Inet4Address;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import android.util.Log;
 
-import android.annotation.SuppressLint;
-import android.view.MotionEvent;
-import android.widget.Toast;
+
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 
 
@@ -119,6 +125,13 @@ public class MainActivity extends AppCompatActivity {  //mainactivity字面意�
         ServerSocketThread new_server = new ServerSocketThread();
         new_server.start();//今天到这,睡觉
         setContentView(R.layout.activity_main);//设置界面
+
+
+        HashMap<String, String> netIPs = Ip.getNetIPs();
+
+//        for (Map.Entry<String, String> entry : netIPs.entrySet()) {
+//            Log.i(TAG, entry.getKey() + ": " + entry.getValue());
+//        }
 
 
     }
