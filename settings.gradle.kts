@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ble_project"
+rootProject.name = "control_app"
 include(":app")
  
